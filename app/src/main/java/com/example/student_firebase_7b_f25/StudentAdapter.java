@@ -22,12 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentAdapter extends FirebaseRecyclerAdapter<Student, StudentAdapter.StudentViewHolder> {
     Context context;
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+
     public StudentAdapter(@NonNull FirebaseRecyclerOptions<Student> options, Context context) {
         super(options);
         this.context = context;
@@ -103,7 +98,6 @@ public class StudentAdapter extends FirebaseRecyclerAdapter<Student, StudentAdap
                     }
                 });
         builder.create().show();
-
 
     }
 

@@ -1,9 +1,11 @@
 package com.example.student_firebase_7b_f25;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     StudentAdapter adapter;
     RecyclerView rvStudents;
     FloatingActionButton fabAdd;
+    Button btnLogout;
+
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addNewStudent();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                startActivity(new Intent(MainActivity.this, Login.class));
+                finish();
             }
         });
 
@@ -97,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
-
-
     }
 
     private  void init()
@@ -106,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference();
         rvStudents = findViewById(R.id.rvStudents);
         fabAdd = findViewById(R.id.fabAdd);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        btnLogout = findViewById(R.id.btnLogout);
+
 
         FirebaseRecyclerOptions<Student> options =
                 new FirebaseRecyclerOptions.Builder<Student>()

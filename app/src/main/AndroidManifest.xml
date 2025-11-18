@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Student_firebase_7b_f25">
         <activity
+            android:name=".Signup"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
